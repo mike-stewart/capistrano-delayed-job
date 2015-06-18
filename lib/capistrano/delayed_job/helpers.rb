@@ -42,13 +42,8 @@ module Capistrano
       end
 
       def delayed_job_script_relative_path
-        "#{relative_bin_path}/delayed_job"
-      end
-
-      private
-      def relative_bin_path
-        bin_path = %w{bin script}.find { |dir_name| Dir.exists?(dir_name) }
-        raise "No bin or script dir found in project" if bin_path.nil?
+        bin_path = %w{bin/delayed_job script/delayed_job}.find { |dir_name| File.exist?(dir_name) }
+        raise "No bin or script file found in project" if bin_path.nil?
         bin_path
       end
     end
